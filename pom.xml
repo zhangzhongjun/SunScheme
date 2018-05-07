@@ -1,0 +1,162 @@
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.zhong</groupId>
+    <artifactId>SunScheme_Split_Memory</artifactId>
+    <packaging>jar</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <name>SunScheme_Split_Memory</name>
+    <url>http://maven.apache.org</url>
+    <properties>
+        <!-- 文件拷贝时的编码 -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <!-- 编译时的编码 -->
+        <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+    </properties>
+    <build>
+        <plugins>
+            <!-- 配置编译器，如版本号，jdk版本号等 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <!-- 运行单元测试 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.19</version>
+                <configuration>
+                    <includes>
+                        <include>**/*Test.java</include>
+                    </includes>
+                </configuration>
+            </plugin>
+            <!-- 运行main函数 -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.6.0</version>
+            </plugin>
+            <!-- 将本地的jar包安装到仓库中，注意parse标签是clean -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>2.5.1</version>
+                <executions>
+                    <execution>
+                        <id>install-jpbc</id>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <phase>clean</phase>
+                        <configuration>
+                            <groupId>it.unisa.dia.gas</groupId>
+                            <artifactId>api</artifactId>
+                            <version>1.2</version>
+                            <packaging>jar</packaging>
+                            <file>${project.basedir}/lib/jpbc-api-1.2.1.jar</file>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>install-plaf</id>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <phase>clean</phase>
+                        <configuration>
+                            <groupId>it.unisa.dia.gas</groupId>
+                            <artifactId>plaf</artifactId>
+                            <version>1.2</version>
+                            <packaging>jar</packaging>
+                            <file>${project.basedir}/lib/jpbc-plaf-1.2.1.jar</file>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- 生成JavaDoc的插件-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.9.1</version>
+                <configuration>
+                    <aggregate>true</aggregate>
+                    <!-- java doc的输出目录-->
+                    <reportOutputDirectory>${project.basedir}</reportOutputDirectory>
+                    <!-- 生成的java doc的名称-->
+                    <destDir>docs</destDir>
+                    <!-- 生成java doc的可执行文件-->
+                    <javadocExecutable>${java.home}/../bin/javadoc</javadocExecutable>
+                    <tags>
+                        <tag>
+                            <name>Description</name>
+                            <placement>a</placement>
+                            <head>功能描述:</head>
+                        </tag>
+                    </tags>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <dependencies>
+        <dependency>
+            <groupId>it.unisa.dia.gas</groupId>
+            <artifactId>api</artifactId>
+            <version>1.2</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>it.unisa.dia.gas</groupId>
+            <artifactId>plaf</artifactId>
+            <version>1.2</version>
+            <scope>compile</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.6</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on -->
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-jdk15on</artifactId>
+            <version>1.54</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/redis.clients/jedis -->
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>2.9.0</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>6.0.6</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.mchange/c3p0 -->
+        <dependency>
+            <groupId>com.mchange</groupId>
+            <artifactId>c3p0</artifactId>
+            <version>0.9.5.2</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.github.alexandrnikitin/bloom-filter -->
+        <dependency>
+            <groupId>com.github.alexandrnikitin</groupId>
+            <artifactId>bloom-filter_2.11</artifactId>
+            <version>0.10.1</version>
+        </dependency>
+    </dependencies>
+</project>
