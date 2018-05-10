@@ -17,15 +17,25 @@
 
 ## 项目结构
 文件夹tsets_bloom_filter: 用于存放保存有tsets的bloomfilter
+
 文件夹params: 存放双线性对的参数
+
 文件夹keys: 存放master key和public key
+
 文件夹abe_keys: 与abe有关的公私钥
+
 文件夹lib: 存放jpbc的库
+
 文件夹testset: 存放测试数据集
+
 文件夹doc: 文档
+
 vsse2_TSets.sql: 用于恢复TSets索引的文件
+
 vsse2_XSets.sql: 用于恢复XSets索引的文件
+
 Shi-Feng Sun_An Effient Non-Interactive Multi-client Searchable Encryption_完整版.pdf 论文
+
 Sun方案实现架构.pdf 向老师汇报的时候用的ppt
 
 
